@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         history.add(Attempt(text, bulls, cows))
-        adapter.notifyDataSetChanged()
+        adapter.replace(history)
         input.setText("")
 
         if (bulls == 4) {
