@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun startNewGame() {
         secret = generateSecret()
         history.clear()
-        adapter.notifyDataSetChanged()
+        adapter.replace(history)
         input.setText("")
         hintText.text = "Угадайте 4-значное число из разных цифр (первая — не ноль)"
     }
@@ -99,7 +99,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.VH>() {
-        private val items get() = (listView?.adapter as? HistoryAdapter)?.let { }
         private val data = mutableListOf<Attempt>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -112,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: VH, position: Int) {
             val a = data[position]
-            holder.text.text = "${position + 1}. ${a.number}  —  🐂 быки: ${a.bulls}, 🐄 коровы: ${a.cows}"
+            holder.text.text = "${position + 1}. ${a.number}  —  быки: ${a.bulls}, коровы: ${a.cows}"
         }
 
         fun replace(list: List<Attempt>) {
