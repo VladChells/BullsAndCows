@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🐂 Быки и коровы 🐄"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/primaryDark"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Угадайте 4-значное число из разных цифр (первая — не ноль)"
+        android:textSize="15sp"
+        android:textColor="@color/textMain"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/attemptInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:hint="• • • •"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textSize="28sp"
+        android:letterSpacing="0.3"
+        android:background="#FFFFFF"
+        android:padding="12dp" />
+
+    <Button
+        android:id="@+id/attemptButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:text="Проверить"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/btn_rounded" />
+
+    <Button
+        android:id="@+id/newGameButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:text="Новая игра"
+        android:textColor="@color/primaryDark"
+        android:textSize="16sp"
+        android:background="@drawable/btn_rounded_secondary" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="История ходов:"
+        android:textStyle="bold"
+        android:textColor="@color/textMain" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historyList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp" />
+</LinearLayout>
