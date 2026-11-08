@@ -1,0 +1,43 @@
+name: Создать ключ подписи
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-key:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Проверить секрет
+        if: env.KEYSTORE_PASSWORD == ''
+        run: echo "::error::Секрет KEYSTORE_PASSWORD не найден. Добавьте его в Settings -> Secrets and variables -> Actions (см. README, часть 3)"
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+
+      - name: Сгенерировать ключ
+        if: env.KEYSTORE_PASSWORD != ''
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          mkdir -p keystore
+          keytool -genkeypair -v \
+            -keystore keystore/app-release.keystore \
+            -alias bullsandcows \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass "$KEYSTORE_PASSWORD" \
+            -keypass "$KEYSTORE_PASSWORD" \
+            -dname "CN=BullsAndCows, OU=Game, O=Personal, L=Moscow, C=RU"
+
+      - name: Закоммитить ключ в репозиторий
+        if: env.KEYSTORE_PASSWORD != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add keystore/app-release.keystore
+          git commit -m "Add release keystore" || echo "Ключ уже существует"
+          git push
